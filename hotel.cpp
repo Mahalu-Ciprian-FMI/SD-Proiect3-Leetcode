@@ -3,37 +3,42 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <vector>
 using namespace std;
-ifstream f("standard.input");
-ofstream g("standard.output");
-  
+ifstream f("standard.in");
+ofstream g("standard.out");
+
 int main()
 {
-	int n, vp[10];
+	int n;
+	int vp[10];
 	string s;
 	f >> n >> s;
+	for (int i = 0;i <=9;i++)
+		vp[i] = 0;
 	for (int i = 0;i < n;i++)
 	{
 		if (s[i] == 'L')
 		{
 			int j = 0;
-			while (s[j] != '0') //iteram pana gasim ceva=0;
+			while (vp[j] != 0 && j!=9) //iteram pana gasim ceva=0;
 				j++;
-			s[j] = 1;
+			vp[j] = 1;
 		}
 		if (s[i] == 'R')
 		{
 			int k = 9;
-			while (s[k] != '0') // ca la 'L' dar de la dreapta la stanga
+			while (vp[k] != 0 && k!=0) // ca la 'L' dar de la dreapta la stanga
 				k--;
-			s[k] = 1;
+			vp[k] = 1;
 		}
-		if (s[i] != 'L' && s[i] != 'R')
-			vp[s[i] - '0'] = 0; // atunci un guest pleaca;
+		if (s[i] !='L' && s[i] != 'R')
+			vp[int(s[i] - '0')] = 0; // atunci un guest pleaca;
 	}
-	for (int i = 0;i < n;i++)
-	{//cout<<s[i];
-		g << s[i];
-}
+	for (int i = 0;i < 10;i++)
+	{
+		cout<<vp[i];
+		g << vp[i];
+	}
 	return 0;
 }
